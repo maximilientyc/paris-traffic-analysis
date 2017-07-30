@@ -12,21 +12,21 @@ defmodule SensorLocationReader do
     String.split(content, "\n")
   end
 
-  defp delete_first_row content do
-    List.delete_at(content, 0)
+  defp delete_first_row lines do
+    List.delete_at(lines, 0)
   end
 
-  defp split_columns(content) do
-    content
+  defp split_columns lines  do
+    lines
       |> Enum.map &String.split(&1, ";")
   end
 
-  defp build_map(line) do
-    line
+  defp build_map lines do
+    lines
      |> Enum.map &(to_map(&1))
   end
 
-  defp to_map([a, b, c, d, e , f]) do
+  defp to_map [a, b, c, d, e , f] do
     %{
       object_id: a,
       id_arc: b,
@@ -37,7 +37,7 @@ defmodule SensorLocationReader do
     }
   end
 
-  defp to_map([""]) do
+  defp to_map [""] do
 
   end
 
