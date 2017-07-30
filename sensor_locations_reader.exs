@@ -1,22 +1,32 @@
 defmodule SensorLocationReader do
 
-  def process_file do
+  def read_as_map do
     File.read("referentiel-comptages-routiers.csv")
      |> split_rows
      |> delete_first_row
-     |> Enum.map(&String.split(&1, ";"))
-     |> Enum.map(&(to_map(&1)))
+     |> split_columns
+     |> build_map
   end
 
-  def split_rows {:ok, content} do
+  defp split_rows {:ok, content} do
     String.split(content, "\n")
   end
 
-  def delete_first_row content do
+  defp delete_first_row content do
     List.delete_at(content, 0)
   end
 
-  def to_map([a, b, c, d, e , f]) do
+  defp split_columns(content) do
+    content
+      |> Enum.map &String.split(&1, ";")
+  end
+
+  defp build_map(line) do
+    line
+     |> Enum.map &(to_map(&1))
+  end
+
+  defp to_map([a, b, c, d, e , f]) do
     %{
       object_id: a,
       id_arc: b,
@@ -27,7 +37,7 @@ defmodule SensorLocationReader do
     }
   end
 
-  def to_map([""]) do
+  defp to_map([""]) do
 
   end
 
