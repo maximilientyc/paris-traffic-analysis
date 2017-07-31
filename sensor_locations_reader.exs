@@ -16,14 +16,12 @@ defmodule SensorLocationReader do
     List.delete_at(lines, 0)
   end
 
-  defp split_columns lines  do
-    lines
-      |> Enum.map &String.split(&1, ";")
+  defp split_columns lines do
+    Enum.map lines, &String.split(&1, ";")
   end
 
   defp build_map lines do
-    lines
-     |> Enum.map &(to_map(&1))
+    Enum.map lines, &(to_map(&1))
   end
 
   defp to_map [a, b, c, d, e , f] do
