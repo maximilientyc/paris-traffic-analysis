@@ -1,4 +1,4 @@
-defmodule SensorLocationReader do
+defmodule ParisTrafficAnalysis.SensorLocationReader do
 
   def read_as_map do
     File.read("referentiel-comptages-routiers.csv")
