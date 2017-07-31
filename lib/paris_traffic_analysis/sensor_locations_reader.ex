@@ -1,7 +1,9 @@
 defmodule ParisTrafficAnalysis.SensorLocationReader do
 
+  @csv_file_path Path.join(:code.priv_dir(:paris_traffic_analysis), "referentiel-comptages-routiers.csv")
+
   def read_as_map do
-    File.read("referentiel-comptages-routiers.csv")
+    File.read(@csv_file_path)
      |> split_rows
      |> delete_first_row
      |> split_columns
